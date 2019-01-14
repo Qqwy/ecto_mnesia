@@ -238,10 +238,10 @@ defmodule EctoMnesia.Planner do
         {index + 1, [record] ++ acc}
 
       {:invalid, [{:unique, _pk_field}]} ->
-        rollback(repo, nil, :uniqueness_constraint_failure)
+        rollback(repo, :uniqueness_constraint_failure)
 
       {:error, reason} ->
-        rollback(repo, nil, reason)
+        rollback(repo, reason)
     end
   end
 
@@ -307,7 +307,7 @@ defmodule EctoMnesia.Planner do
   @doc """
   Transaction rollbacks is not fully supported.
   """
-  def rollback(_repo, _tid, reason \\ :rollback), do: Mnesia.abort(reason)
+  def rollback(_repo, reason \\ :rollback), do: Mnesia.abort(reason)
 
   @doc """
   Deletes a record from a Mnesia database.
