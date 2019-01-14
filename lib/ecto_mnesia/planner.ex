@@ -307,7 +307,7 @@ defmodule EctoMnesia.Planner do
   @doc """
   Transaction rollbacks is not fully supported.
   """
-  def rollback(_repo, _tid, reason), do: Mnesia.abort(reason)
+  def rollback(_repo, _tid, reason \\ :rollback), do: Mnesia.abort(reason)
 
   @doc """
   Deletes a record from a Mnesia database.

@@ -72,6 +72,7 @@ defmodule EctoMnesia.Adapter do
   defdelegate in_transaction?(repo), to: @adapter_implementation
   @doc false
   defdelegate rollback(repo, tid), to: @adapter_implementation
+  defdelegate rollback(repo, tid, reason), to: @adapter_implementation
 
   @doc false
   defdelegate autogenerate(type), to: @adapter_implementation

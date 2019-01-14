@@ -195,7 +195,8 @@ defmodule EctoMnesia.Table do
     :exit, {:aborted, {:no_exists, [schema, _id]}} -> {:raise, "Schema #{inspect(schema)} does not exist"}
     :exit, {:aborted, {:no_exists, schema}} -> {:raise, "Schema #{inspect(schema)} does not exist"}
     :exit, {:aborted, :rollback} -> {:error, :rollback}
-    :exit, {:aborted, reason} -> {:error, reason, System.stacktrace()}
+    :exit, {:aborted, reason} -> {:error, reason}
+    # :exit, {:aborted, reason} -> {:error, reason, System.stacktrace()}
     :exit, reason -> {:error, reason, System.stacktrace()}
   end
 
