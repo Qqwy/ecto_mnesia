@@ -194,8 +194,8 @@ defmodule EctoMnesia.Table do
   catch
     :exit, {:aborted, {:no_exists, [schema, _id]}} -> {:raise, "Schema #{inspect(schema)} does not exist"}
     :exit, {:aborted, {:no_exists, schema}} -> {:raise, "Schema #{inspect(schema)} does not exist"}
-    :exit, {:aborted, :rollback} -> {:error, :rollback}
-    :exit, {:aborted, reason} -> {:error, reason}
+    # :exit, {:aborted, :rollback} -> {:error, :rollback}
+    :exit, {:aborted, reason} -> {:error, reason} |> IO.inspect(label: "ecto_mnesia_debugging")
     # :exit, {:aborted, reason} -> {:error, reason, System.stacktrace()}
     :exit, reason -> {:error, reason, System.stacktrace()}
   end
@@ -205,7 +205,7 @@ defmodule EctoMnesia.Table do
       {:aborted, {:no_exists, [schema, _id]}} -> {:raise, "Schema #{inspect(schema)} does not exist"}
       {:aborted, reason} -> {:error, reason}
       {:atomic, result} -> result
-      result -> result
+      result -> result |>IO.inspect(label: "ecto_mnesia do_activity")
     end
   end
 
